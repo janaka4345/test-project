@@ -1,0 +1,26 @@
+import "@testing-library/jest-dom/vitest";
+import { render, screen } from "@testing-library/react";
+import { http, HttpResponse } from "msw";
+import { setupServer } from "msw/node";
+import { afterAll, afterEach, beforeAll, expect, test } from "vitest";
+import App from "./App";
+
+const server = setupServer(
+  http.get("*/api/items", () =>
+    HttpResponse.json({
+      env: "test",
+      message: "Hello from test",
+      items: [{ id: 1, name: "Test Item", price: 9.99 }],
+    }),
+  ),
+);
+
+beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+test("loads and displays items over HTTP", async () => {
+  render(<App />);
+
+  expect(await screen.findByText("Test Item - $9.99")).toBeInTheDocument();
+});
