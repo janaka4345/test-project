@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Product from "./Product";
+import type { AppConfig } from "./config";
 
 type Item = {
   id: number;
@@ -12,7 +14,7 @@ type ItemsResponse = {
   items: Item[];
 };
 
-function App() {
+function App({ config }: { config: AppConfig }) {
   const [data, setData] = useState<ItemsResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,7 +31,7 @@ function App() {
   return (
     <main>
       <h1>Items</h1>
-      <p>Frontend env: {import.meta.env.VITE_APP_ENV}</p>
+      <p>Frontend env: {config.appEnv}</p>
       {data && (
         <p>
           Backend env: {data.env} - {data.message}
@@ -43,6 +45,7 @@ function App() {
           </li>
         ))}
       </ul>
+      <Product />
     </main>
   );
 }
