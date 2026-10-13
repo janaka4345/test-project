@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Product from "./Product";
 import type { AppConfig } from "./config";
 
 type Item = {
@@ -45,7 +44,6 @@ function App({ config }: { config: AppConfig }) {
           </li>
         ))}
       </ul>
-      <Product />
     </main>
   );
 }

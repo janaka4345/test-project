@@ -30,11 +30,6 @@ export default defineConfig(({ mode }) => ({
     port: 9000,
     proxy: {
       "/api": "http://localhost:8000",
-      "/dummyjson": {
-        target: "https://dummyjson.com",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/dummyjson/, ""),
-      },
     },
   },
   test: {
