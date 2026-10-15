@@ -39,6 +39,9 @@ updates:
     cooldown:
       default-days: 7
       semver-major-days: 14
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     groups:
       frontend-minor-patch:
         patterns: ["*"]
