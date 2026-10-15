@@ -1,14 +1,19 @@
 import { expect, test } from "@playwright/test";
 
-test("shows items from the backend", async ({ page }) => {
+test("frontend and backend agree on the environment and items load", async ({
+  page,
+  request,
+}) => {
+  const res = await request.get("/config.json");
+  expect(res.ok()).toBeTruthy();
+  const { appEnv } = await res.json();
+
   await page.goto("/");
 
   await expect(page.getByRole("heading", { name: "Items" })).toBeVisible();
-  await expect(page.getByText("Frontend env: development")).toBeVisible();
+  await expect(page.getByText(`Frontend env: ${appEnv}`)).toBeVisible();
   await expect(
-    page.getByText(
-      "Backend env: development - Hello from the development backend",
-    ),
+    page.getByText(new RegExp(`^Backend env: ${appEnv} - `)),
   ).toBeVisible();
   await expect(page.getByRole("listitem")).toHaveText([
     "Apple - $1.20",
