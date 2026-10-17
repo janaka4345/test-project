@@ -1,0 +1,7 @@
+# Vulnerability exceptions. Each entry needs: the narrowest match (CVE + package),
+# a reason someone can verify, an owner, and a review date tracked in an issue.
+ignore: []
+#  - vulnerability: CVE-2026-12345
+#    package:
+#      name: libexample
+#    reason: "Not reachable: we never call example_parse(). Owner: janaka4345. Review by 2026-12-01 (#NN)."
